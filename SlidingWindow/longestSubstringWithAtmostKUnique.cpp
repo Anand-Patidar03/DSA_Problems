@@ -1,36 +1,42 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int main()
+class Solution
 {
-    string s = "abaccab";
-    int k=2;
-
-    map<char, int> mp;
-    int n = s.length();
-    int i = 0, j = 0, maxm = 0;
-    while (j < n)
+public:
+    int minRemovals(vector<int> &nums, int target)
     {
-        mp[s[j]]++;
-        if(mp.size() <= k)
+        int n = nums.size();
+
+        int xorr = 0;
+        for (int x : nums)
         {
-            maxm = max(maxm,j-i+1);
-            j++;
+            xorr ^= x;
         }
-        else 
+
+        int X = xorr ^ target;
+
+        if (X == 0)
         {
-            while(mp.size() > k)
+            return 0;
+        }
+
+        unordered_set<int> s(nums.begin(), nums.end());
+
+        if (s.count(X))
+        {
+            return 1;
+        }
+
+        for (int x : nums)
+        {
+            int req = X ^ x;
+            if (req != x && s.count(req))
             {
-                mp[s[i]]--;
-                if(mp[s[i]] == 0)
-                {
-                    mp.erase(s[i]);
-                }
-                i++;
+                return 2;
             }
-            j++;
         }
+
+        return -1;
     }
-    
-    cout<<maxm<<endl;
-}
+};
