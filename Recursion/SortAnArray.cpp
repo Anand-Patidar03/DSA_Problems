@@ -35,8 +35,8 @@ void arrSort(vector<int>& nums)
 
 int main()
 {
-    vector<int> nums = {4,8,3,5,8,0,2};
-    int n = 7;
+    vector<int> nums = {2,5,1};
+    int n = 3;
     arrSort(nums);
 
     for(int i=0;i<n;i++)
